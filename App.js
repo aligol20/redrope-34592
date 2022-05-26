@@ -23,7 +23,7 @@ const getNavigation = (modules, screens, initialRoute) => {
       const pakage = mod.package
       const name = mod.value.title
       const Navigator = mod.value.navigator
-      console.log("*****")
+      console.log("+++*****")
       const Component = () => {
         return (
           <OptionsContext.Provider value={getOptions(pakage)}>
