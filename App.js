@@ -20,9 +20,12 @@ import { GlobalOptionsContext, OptionsContext, getOptions } from "@options"
 const getNavigation = (modules, screens, initialRoute) => {
   const Navigation = () => {
     const routes = modules.concat(screens).map(mod => {
-      const pakage = mod.package;
-      const name = mod.value.title;
-      const Navigator = mod.value.navigator;
+      const pakage = mod.package
+      const name = mod.value.title
+      const Navigator = mod.value.navigator
+      const options = mod.value.options
+
+      console.log(mod, "dddd")
       const Component = () => {
         return (
           <OptionsContext.Provider value={getOptions(pakage)}>
@@ -30,15 +33,22 @@ const getNavigation = (modules, screens, initialRoute) => {
           </OptionsContext.Provider>
         )
       }
-      return <Stack.Screen key={name} name={name} component={Component} />
+      return (
+        <Stack.Screen
+          key={name}
+          name={name}
+          component={Component}
+          options={options}
+        />
+      )
     })
 
-    const screenOptions = { headerShown: true };
+    const screenOptions = { headerShown: true }
 
     return (
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName={initialRoute}
+          initialRouteName={"SplashScreen"}
           screenOptions={screenOptions}
         >
           {routes}
@@ -49,7 +59,7 @@ const getNavigation = (modules, screens, initialRoute) => {
   return Navigation
 }
 
-const getStore = (globalState) => {
+const getStore = globalState => {
   const appReducer = createReducer(globalState, _ => {
     return globalState
   })
